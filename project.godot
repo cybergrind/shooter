@@ -15,6 +15,11 @@ run/main_scene="res://scenes/game_scene.tscn"
 config/features=PackedStringArray("4.0", "GL Compatibility")
 config/icon="res://graphics/icon.svg"
 
+[display]
+
+window/size/mode=2
+window/size/borderless=true
+
 [input]
 
 ui_left={
@@ -48,5 +53,4 @@ ui_down={
 
 [rendering]
 
-renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"

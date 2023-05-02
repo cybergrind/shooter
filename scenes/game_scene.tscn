@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://cqtj5ku25jg03"]
+[gd_scene load_steps=11 format=3 uid="uid://cqtj5ku25jg03"]
 
 [ext_resource type="Script" path="res://src/character.gd" id="1_dp4a8"]
 [ext_resource type="Texture2D" uid="uid://p0f33mmlyghs" path="res://graphics/eye.png" id="2_pn8om"]
+[ext_resource type="Script" path="res://src/wall.gd" id="3_wplcj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_254n1"]
 atlas = ExtResource("2_pn8om")
@@ -40,6 +41,10 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_76jea"]
 radius = 48.1041
 
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_38jrx"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_s05ap"]
+
 [node name="Node2D" type="Node2D"]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
@@ -56,3 +61,14 @@ sprite_frames = SubResource("SpriteFrames_diekq")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 rotation = -1.55509
 shape = SubResource("CircleShape2D_76jea")
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(249, 146)
+polygon = PackedVector2Array(65, -24, 208, 69, -52, 151, -185, 2)
+script = ExtResource("3_wplcj")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Polygon2D"]
+material = SubResource("CanvasItemMaterial_38jrx")
+physics_material_override = SubResource("PhysicsMaterial_s05ap")
