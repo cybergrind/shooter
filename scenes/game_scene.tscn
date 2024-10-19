@@ -1,13 +1,14 @@
 [gd_scene load_steps=15 format=3 uid="uid://cqtj5ku25jg03"]
 
 [ext_resource type="Script" path="res://src/character.gd" id="1_dp4a8"]
-[ext_resource type="Script" path="res://scenes/game_scene.gd" id="1_stthy"]
+[ext_resource type="Script" path="res://src/game_scene.gd" id="1_stthy"]
 [ext_resource type="Shader" path="res://shaders/person.gdshader" id="3_g7yh5"]
 [ext_resource type="Texture2D" uid="uid://c4d1apgfvn4x2" path="res://graphics/icon.svg" id="3_nucs4"]
 [ext_resource type="Script" path="res://src/wall.gd" id="3_wplcj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ltk34"]
 shader = ExtResource("3_g7yh5")
+shader_parameter/flash = Vector4(0, 0, 0, 0)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6o1jb"]
 size = Vector2(21.3333, 20)
@@ -58,6 +59,7 @@ size = Vector2(34, 130)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_7yjh3"]
 shader = ExtResource("3_g7yh5")
+shader_parameter/flash = Vector4(0, 0, 0, 0)
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_stthy")
@@ -75,7 +77,7 @@ one_way_collision_margin = 16.3
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
 sprite_frames = SubResource("SpriteFrames_diekq")
-frame_progress = 0.194787
+frame_progress = 0.804601
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 

@@ -1,19 +1,15 @@
 shader_type canvas_item;
-uniform vec4 flash = vec4(0, 0, 0, 0);
 
 void vertex() {
 	// Called for every vertex the material is visible on.
-	COLOR = flash;
 }
 
 void fragment() {
 	// Called for every pixel the material is visible on.
-	vec4 c = texture(TEXTURE, UV);
-	//c.rgb = flash;
-	COLOR = flash;
+	COLOR = vec4(0.9, 0.9, 0.0, 1.0);
 }
 
 //void light() {
-	// Called for every pixel for every light affecting the CanvasItem.
+	// Called for every pixel for every light affecting the material.
 	// Uncomment to replace the default light processing function with this one.
 //}
