@@ -1,36 +1,51 @@
-[gd_scene load_steps=11 format=3 uid="uid://cqtj5ku25jg03"]
+[gd_scene load_steps=15 format=3 uid="uid://cqtj5ku25jg03"]
 
 [ext_resource type="Script" path="res://src/character.gd" id="1_dp4a8"]
-[ext_resource type="Texture2D" uid="uid://p0f33mmlyghs" path="res://graphics/eye.png" id="2_pn8om"]
+[ext_resource type="Script" path="res://scenes/game_scene.gd" id="1_stthy"]
+[ext_resource type="Shader" path="res://shaders/person.gdshader" id="3_g7yh5"]
+[ext_resource type="Texture2D" uid="uid://c4d1apgfvn4x2" path="res://graphics/icon.svg" id="3_nucs4"]
 [ext_resource type="Script" path="res://src/wall.gd" id="3_wplcj"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_254n1"]
-atlas = ExtResource("2_pn8om")
-region = Rect2(0, 0, 32, 32)
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ltk34"]
+shader = ExtResource("3_g7yh5")
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_h26yx"]
-atlas = ExtResource("2_pn8om")
-region = Rect2(32, 0, 32, 32)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6o1jb"]
+size = Vector2(21.3333, 20)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_78ive"]
-atlas = ExtResource("2_pn8om")
-region = Rect2(0, 32, 32, 32)
+[sub_resource type="AtlasTexture" id="AtlasTexture_4gaqd"]
+atlas = ExtResource("3_nucs4")
+region = Rect2(0, 0, 32, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_onggk"]
+atlas = ExtResource("3_nucs4")
+region = Rect2(32, 0, 32, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7w2mi"]
+atlas = ExtResource("3_nucs4")
+region = Rect2(64, 0, 32, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c4s51"]
+atlas = ExtResource("3_nucs4")
+region = Rect2(96, 0, 32, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_diekq"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_254n1")
+"texture": SubResource("AtlasTexture_4gaqd")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_h26yx")
+"texture": SubResource("AtlasTexture_onggk")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_78ive")
+"texture": SubResource("AtlasTexture_7w2mi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c4s51")
 }],
 "loop": true,
 "name": &"default",
-"speed": 8.0
+"speed": 2.0
 }, {
 "frames": [],
 "loop": true,
@@ -38,37 +53,52 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_76jea"]
-radius = 48.1041
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rmax2"]
+size = Vector2(34, 130)
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_38jrx"]
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_s05ap"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7yjh3"]
+shader = ExtResource("3_g7yh5")
 
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_stthy")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+material = SubResource("ShaderMaterial_ltk34")
 position = Vector2(562, 233)
 up_direction = Vector2(0.707107, -0.707107)
 script = ExtResource("1_dp4a8")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
-position = Vector2(10, 9.00001)
-rotation = -1.5708
-scale = Vector2(4.0625, 6.51562)
-sprite_frames = SubResource("SpriteFrames_diekq")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
-rotation = -1.55509
-shape = SubResource("CircleShape2D_76jea")
+scale = Vector2(1.5, 6.4)
+shape = SubResource("RectangleShape2D_6o1jb")
+one_way_collision_margin = 16.3
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+sprite_frames = SubResource("SpriteFrames_diekq")
+frame_progress = 0.194787
 
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 
+[node name="Area2D" type="Area2D" parent="CharacterBody2D" groups=["player"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D/Area2D"]
+shape = SubResource("RectangleShape2D_rmax2")
+
 [node name="Polygon2D" type="Polygon2D" parent="."]
+material = SubResource("ShaderMaterial_7yjh3")
 position = Vector2(249, 146)
 polygon = PackedVector2Array(65, -24, 208, 69, -52, 151, -185, 2)
 script = ExtResource("3_wplcj")
 
+[node name="Area2D" type="Area2D" parent="Polygon2D" groups=["wall"]]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Polygon2D/Area2D"]
+polygon = PackedVector2Array(-0.31, -0.72, 0, 0, 0, 0)
+
 [node name="StaticBody2D" type="StaticBody2D" parent="Polygon2D"]
-material = SubResource("CanvasItemMaterial_38jrx")
-physics_material_override = SubResource("PhysicsMaterial_s05ap")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Polygon2D/StaticBody2D"]
+polygon = PackedVector2Array(0, 0, 0, 0, 0, 0)
+
+[connection signal="wall_collide" from="CharacterBody2D" to="Polygon2D" method="_on_character_collid"]
+[connection signal="area_entered" from="CharacterBody2D/Area2D" to="CharacterBody2D" method="_on_area_2d_area_entered"]

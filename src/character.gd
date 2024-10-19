@@ -22,3 +22,11 @@ func _process(_delta):
 	# _animated_sprite.look_at(get_global_mouse_position())
 	look_at(get_global_mouse_position())
 	move_and_slide()
+
+
+signal wall_collide
+
+func _on_area_2d_area_entered(area: Area2D) -> void:
+	print('collided')
+	wall_collide.emit()
+	
